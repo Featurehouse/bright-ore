@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "bright-ore",
+  "version": "${version}",
+  "name": "Bright Ore",
+  "description": "A client mod that makes ores light and bright. It can decrease the difficulty of mining in 1.17 caves.",
+  "authors": [
+    "teddyxlandlee"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/bright-ore/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "org.featurehouse.mcmod.brightore.BrightOreClient"
+    ]
+  },
+  "mixins": [
+    "bright-ore.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "minecraft": "1.17-alpha.21.14.a"
+  }
+}
