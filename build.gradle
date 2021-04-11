@@ -23,7 +23,14 @@ dependencies {
     mappings "org.featurehouse.mc:fabric-yarn:${project.yarn_mappings}_featurehouse:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    def resourceLoaderS = "net.fabricmc.fabric-api:fabric-resource-loader-v0:${project.fabric_resource_loader_version}"
+
+    modImplementation resourceLoaderS
+    include resourceLoaderS
+}
+
+minecraft {
+    accessWidener = file('src/main/resources/bright-ore.aw')
 }
 
 processResources {

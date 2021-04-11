@@ -9,18 +9,20 @@
   ],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/bright-ore/icon.png",
+  "icon": "assets/bright_ore/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "org.featurehouse.mcmod.brightore.BrightOreClient"
+      "org.featurehouse.mcmod.brightore.OreTagLoader::onInitialize"
     ]
   },
   "mixins": [
     "bright-ore.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.11.3",
-    "minecraft": "1.17-alpha.21.14.a"
-  }
+    "fabricloader": ">=0.10.0",
+    "fabric-resource-loader-v0": "*",
+    "minecraft": ">=1.16.2"
+  },
+  "accessWidener": "bright-ore.aw"
 }
