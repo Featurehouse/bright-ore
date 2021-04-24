@@ -7,8 +7,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
@@ -25,6 +24,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
+
+import static org.featurehouse.mcmod.brightore.OreTagLoader.OreTagMap.INSTANCE;
 
 @Environment(EnvType.CLIENT)
 public class OreTagLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
@@ -126,5 +127,14 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
 
     private static boolean notAir(Block block) {
         return block != Blocks.AIR && block != Blocks.CAVE_AIR && block != Blocks.VOID_AIR;
+    }
+
+    public static int redirectLuminance(BlockState it) {
+        Block block1 = it.getBlock();
+        if (INSTANCE.containsKey(block1))
+            return INSTANCE.getValue(block1);
+        else if (block1 instanceof OreBlock || block1 instanceof RedstoneOreBlock) {
+            return 30;
+        } else return it.getLuminance();
     }
 }

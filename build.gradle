@@ -29,10 +29,6 @@ dependencies {
     include resourceLoaderS
 }
 
-minecraft {
-    accessWidener = file('src/main/resources/bright-ore.aw')
-}
-
 processResources {
     inputs.property "version", project.version
 
