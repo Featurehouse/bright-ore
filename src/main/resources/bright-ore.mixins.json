@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
     "MixinBlockRenderer",
-    "MixinSmoothBlockModelRenderer"
+    "MixinSmoothBlockModelRenderer",
+    "MixinVideoOptionsMenu"
   ],
   "injectors": {
     "defaultRequire": 1

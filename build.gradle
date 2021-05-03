@@ -17,6 +17,10 @@ dependencies {
             name = 'COVID-Trump'
             url = 'https://covid-trump.github.io/mvn/'
         }
+        maven {
+            name = "TerraformersMC"
+            url  = 'https://maven.terraformersmc.com/releases/'
+        }
     }
     //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -27,6 +31,10 @@ dependencies {
 
     modImplementation resourceLoaderS
     include resourceLoaderS
+    //modImplementation(include("net.fabricmc.fabric-api:fabric-api-base:${project.fabric_api_base_version}"))
+    //modImplementation(include("net.fabricmc.fabric-api:fabric-screen-api-v1:${project.fabric_screen_api_version}"))
+
+    modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 processResources {

@@ -31,6 +31,7 @@ import static org.featurehouse.mcmod.brightore.OreTagLoader.OreTagMap.INSTANCE;
 public class OreTagLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     public static void onInitialize() {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new OreTagLoader());
+        BrightOreConfig.INSTANCE.reload();
     }
 
     protected static final Identifier FABRIC_ID = new Identifier("bright_ore", "ore_tags");
