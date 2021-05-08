@@ -21,11 +21,13 @@ abstract class MixinVideoOptionsMenu extends GameOptionsScreen {
         super(parent, gameOptions, title);
     }
 
-    @Inject(method = "init()V",
+    /*@Inject(method = "init()V",
             at = @At(
             value = "INVOKE_ASSIGN",
-            target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addAll([Lnet/minecraft/client/option/Option;)V"
-    ))
+            target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addAll([Lnet/minecraft/client/option/Option;)V",
+            ordinal = 0
+    ))*/
+    @Inject(method = "init", at = @At("RETURN"))
     private void onInit(CallbackInfo ci) {
         VideoOptionsScreen it = (VideoOptionsScreen) (Object) this;
         this.list.addSingleOptionEntry(BrightOreConfigScreen.asOption(it, client));

@@ -6,11 +6,9 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.*;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
@@ -29,10 +27,6 @@ import static org.featurehouse.mcmod.brightore.OreTagLoader.OreTagMap.INSTANCE;
 
 @Environment(EnvType.CLIENT)
 public class OreTagLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-    public static void onInitialize() {
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new OreTagLoader());
-        BrightOreConfig.INSTANCE.reload();
-    }
 
     protected static final Identifier FABRIC_ID = new Identifier("bright_ore", "ore_tags");
     private static final Gson GSON = new GsonBuilder().create();
@@ -131,11 +125,13 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
     }
 
     public static int redirectLuminance(BlockState it) {
-        Block block1 = it.getBlock();
-        if (INSTANCE.containsKey(block1))
-            return INSTANCE.getValue(block1);
-        else if (block1 instanceof OreBlock || block1 instanceof RedstoneOreBlock) {
-            return 30;
-        } else return it.getLuminance();
+        if (BrightOreConfig.INSTANCE.render()) {
+            Block block1 = it.getBlock();
+            if (INSTANCE.containsKey(block1))
+                return INSTANCE.getValue(block1);
+            else if (block1 instanceof OreBlock || block1 instanceof RedstoneOreBlock) {
+                return 30;
+            }
+        } return it.getLuminance();
     }
 }
