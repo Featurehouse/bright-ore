@@ -28,12 +28,17 @@ public class BrightOreConfigScreen extends Screen {
         this.parent = parent;
     }
 
+    /**
+     * @see VideoOptionsScreen#init()
+     * @see Option#AO
+     */
     @Override
     protected void init() {
-        this.addButton(RENDER.createButton(null, this.width / 2 - 100, 27, 200));
+        assert client != null : "???";
+        this.addButton(RENDER.createButton(client.options, this.width / 2 - 100, 27, 200));
         this.addButton(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, button -> {
             BrightOreConfig.INSTANCE.save();
-            assert this.client != null : "???";
+            client.worldRenderer.reload();
             this.client.openScreen(this.parent);
         }));
     }
@@ -53,6 +58,7 @@ public class BrightOreConfigScreen extends Screen {
         super.render(matrices, mouseX, mouseY, delta);
     }
 
-    protected static final CyclingOption<Boolean> RENDER = CyclingOption.create("options.bright_ore.render", vanilla -> BrightOreConfig.INSTANCE.render(),
+    protected static final CyclingOption<Boolean> RENDER = CyclingOption.create("options.bright_ore.render",
+            vanilla -> BrightOreConfig.INSTANCE.render(),
             (vanilla, option, ifRender) -> BrightOreConfig.INSTANCE.setRender(ifRender));
 }
