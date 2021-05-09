@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
 
-@Mixin(value = BlockModelRenderer.class, priority = 888)
+@Mixin(value = BlockModelRenderer.class, priority = 2888)
 @Environment(EnvType.CLIENT)
 abstract class MixinSmoothBlockModelRenderer {
     @Shadow public abstract boolean renderFlat(BlockRenderView world, BakedModel model, BlockState state, BlockPos pos, MatrixStack buffer, VertexConsumer vertexConsumer, boolean cull, Random random, long l, int i);

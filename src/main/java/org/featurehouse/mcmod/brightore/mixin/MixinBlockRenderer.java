@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = WorldRenderer.class, priority = 888)
+@Mixin(value = WorldRenderer.class, priority = 2888)
 @Environment(EnvType.CLIENT)
 abstract class MixinBlockRenderer {
     @Redirect(
