@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = WorldRenderer.class, priority = 2888)
+@Mixin(value = WorldRenderer.class)
 @Environment(EnvType.CLIENT)
 abstract class MixinBlockRenderer {
     @Redirect(
@@ -17,7 +17,8 @@ abstract class MixinBlockRenderer {
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/block/BlockState;getLuminance()I"
-            )
+            ),
+            allow = 1
     )
     private static int blockLight(BlockState it) {
         return OreTagLoader.redirectLuminance(it);

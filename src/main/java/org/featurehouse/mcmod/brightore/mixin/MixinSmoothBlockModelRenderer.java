@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
 
-@Mixin(value = BlockModelRenderer.class, priority = 2888)
+@Mixin(value = BlockModelRenderer.class)
 @Environment(EnvType.CLIENT)
 abstract class MixinSmoothBlockModelRenderer {
     @Shadow public abstract boolean renderFlat(BlockRenderView world, BakedModel model, BlockState state, BlockPos pos, MatrixStack buffer, VertexConsumer vertexConsumer, boolean cull, Random random, long l, int i);
@@ -33,7 +33,12 @@ abstract class MixinSmoothBlockModelRenderer {
      * @see BlockModelRenderer#renderFlat(BlockRenderView, BakedModel, BlockState, BlockPos,
      * MatrixStack, VertexConsumer, boolean, Random, long, int)
      */
-    @Inject(at = @At("HEAD"), cancellable = true, method = "render(Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/client/render/model/BakedModel;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;ZLjava/util/Random;JI)Z")
+    @Inject(
+            at = @At("HEAD"),
+            cancellable = true,
+            method = "render(Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/client/render/model/BakedModel;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;ZLjava/util/Random;JI)Z",
+            allow = 1
+    )
     private void blockLight(BlockRenderView world, BakedModel model, BlockState state, BlockPos pos, MatrixStack matrix, VertexConsumer vertexConsumer, boolean cull, Random random, long seed, int overlay, CallbackInfoReturnable<Boolean> cir) {
         int light = OreTagLoader.redirectLuminance(state);
         if (light > 0)
