@@ -1,12 +1,13 @@
 {
   "required": true,
+  "mixinPriority": 888,
+  "priority": 888,
   "minVersion": "0.8",
-  "package": "org.featurehouse.mcmod.brightore.mixin",
+  "package": "org.featurehouse.mcmod.brightore.mixin.renderer",
   "compatibilityLevel": "JAVA_8",
   "client": [
     "MixinBlockRenderer",
-    "MixinSmoothBlockModelRenderer",
-    "MixinVideoOptionsMenu"
+    "MixinSmoothBlockModelRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

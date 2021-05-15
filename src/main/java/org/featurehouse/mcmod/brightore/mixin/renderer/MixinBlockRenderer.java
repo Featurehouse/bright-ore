@@ -1,4 +1,4 @@
-package org.featurehouse.mcmod.brightore.mixin;
+package org.featurehouse.mcmod.brightore.mixin.renderer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

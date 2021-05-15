@@ -1,4 +1,4 @@
-package org.featurehouse.mcmod.brightore.mixin;
+package org.featurehouse.mcmod.brightore.mixin.config;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;

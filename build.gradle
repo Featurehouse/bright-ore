@@ -35,6 +35,9 @@ dependencies {
     //modImplementation(include("net.fabricmc.fabric-api:fabric-screen-api-v1:${project.fabric_screen_api_version}"))
 
     modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+    modRuntime 'net.fabricmc.fabric-api:fabric-renderer-indigo:0.4.8+413ddf6417'
+    //include(modImplementation("net.fabricmc.fabric-api:fabric-rendering-api-v1:0.4.1+92519afa17"))
 }
 
 processResources {
