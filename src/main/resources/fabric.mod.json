@@ -27,5 +27,8 @@
     "fabricloader": ">=0.10.0",
     "fabric-resource-loader-v0": "*",
     "minecraft": ">=1.16.2"
+  },
+  "custom": {
+    "fabric-renderer-api-v1:contains_renderer": "Incompatible with Indigo"
   }
 }

@@ -28,7 +28,16 @@ abstract class MixinSmoothBlockModelRenderer {
      * to {@link BlockModelRenderer#renderFlat(BlockRenderView, BakedModel, BlockState, BlockPos,
      * MatrixStack, VertexConsumer, boolean, Random, long, int)} BEFORE indigo. <br />
      *
-     * See Also: {@code net.fabricmc.mixin.client.indigo.renderer.MixinBlockModelRenderer}
+     * <br />
+     * Indigo is incompatible with Bright Ore. However, we do not want to shake it
+     * away unfriendly. Indigo uses a
+     * {@link org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin} to start/stop indigo
+     * mixin. So just take a custom value on {@code fabric.mod.json}.<br />
+     * <br />
+     *
+     * See Also: {@code net.fabricmc.mixin.client.indigo.renderer.MixinBlockModelRenderer} <br />
+     * See Also: {@code net.fabricmc.mixin.client.indigo.renderer.MixinChunkRebuildTask}   <br />
+     * See Also: {@code net.minecraft.client.render.chunk.ChunkBuilder.RebuildTask#render}
      *
      * @see BlockModelRenderer#renderFlat(BlockRenderView, BakedModel, BlockState, BlockPos,
      * MatrixStack, VertexConsumer, boolean, Random, long, int)
@@ -41,7 +50,12 @@ abstract class MixinSmoothBlockModelRenderer {
     )
     private void blockLight(BlockRenderView world, BakedModel model, BlockState state, BlockPos pos, MatrixStack matrix, VertexConsumer vertexConsumer, boolean cull, Random random, long seed, int overlay, CallbackInfoReturnable<Boolean> cir) {
         int light = OreTagLoader.redirectLuminance(state);
-        if (light > 0)
+        /* DEBUG */
+        //System.out.printf("Redirection finished: pos %s light %d\n", pos, light);
+
+        if (light > 0) {
+            //System.out.printf("Force Render Flat at %s with light ", pos);
             cir.setReturnValue(this.renderFlat(world, model, state, pos, matrix, vertexConsumer, cull, random, seed, overlay));
+        }
     }
 }
