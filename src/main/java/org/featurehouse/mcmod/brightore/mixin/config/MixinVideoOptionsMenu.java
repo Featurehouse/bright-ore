@@ -1,10 +1,10 @@
 package org.featurehouse.mcmod.brightore.mixin.config;
 
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.option.GameOptionsScreen;
-import net.minecraft.client.gui.screen.option.VideoOptionsScreen;
+import net.minecraft.client.gui.screen.VideoOptionsScreen;
+import net.minecraft.client.gui.screen.options.GameOptionsScreen;
 import net.minecraft.client.gui.widget.ButtonListWidget;
-import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.text.Text;
 import org.featurehouse.mcmod.brightore.BrightOreConfigScreen;
 import org.spongepowered.asm.mixin.Mixin;
