@@ -1,4 +1,6 @@
 {
   "options.bright_ore": "亮闪闪的矿物®",
-  "options.bright_ore.render": "矿物目害效果"
+  "options.bright_ore.render": "矿物目害效果",
+  "options.bright_ore.default_light": "矿物默认亮度",
+  "options.bright_ore.default_light.exp": "若未指定矿物亮度，采用此默认数值"
 }

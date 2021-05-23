@@ -1,4 +1,6 @@
 {
   "options.bright_ore": "礦物高亮",
-  "options.bright_ore.render": "高亮礦物"
+  "options.bright_ore.render": "高亮礦物",
+  "options.bright_ore.default_light": "礦物默認亮度",
+  "options.bright_ore.default_light.exp": "若未指定礦物亮度，采用此默認數值"
 }

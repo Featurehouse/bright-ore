@@ -1,4 +1,6 @@
 {
   "options.bright_ore": "Bright Ore Config",
-  "options.bright_ore.render": "Render Bright Ore"
+  "options.bright_ore.render": "Render Bright Ore",
+  "options.bright_ore.default_light": "Default Ore Light",
+  "options.bright_ore.default_light.exp": "Default luminance of configured ores if not specified its value."
 }

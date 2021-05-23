@@ -50,7 +50,7 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
                     JsonObject obj = je.getAsJsonObject();
                     try {
                         @Nullable JsonElement je2 = obj.get("light");
-                        int light = je2 == null ? 30 : je2.getAsInt();
+                        int light = je2 == null ? BrightOreConfig.INSTANCE.defaultLight() : je2.getAsInt();
 
                         String string = obj.get("value").getAsString();
                         put(string, light);
@@ -63,7 +63,7 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
                     }
                 } else {
                     String string = je.getAsString();
-                    put(string, 30);
+                    put(string, BrightOreConfig.INSTANCE.defaultLight());
                 }
             }
         });
@@ -107,9 +107,11 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
         }
 
         public int put(Block block) {
-            return this.put(block, 30);
+            return this.put(block, BrightOreConfig.INSTANCE.defaultLight());
         }
 
+        @Deprecated // If you want to disable rendering a kind of
+                    // ore, you must set its luminance to zero.
         public boolean available(Block block) {
             if (!map.containsKey(block)) return false;
             return this.getValue(block) > 0;
@@ -130,7 +132,7 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
             if (INSTANCE.containsKey(block1))
                 return INSTANCE.getValue(block1);
             else if (block1 instanceof OreBlock || block1 instanceof RedstoneOreBlock) {
-                return 30;
+                return BrightOreConfig.INSTANCE.defaultLight();
             }
         } return it.getLuminance();
     }
