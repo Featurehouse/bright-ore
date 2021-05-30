@@ -6,10 +6,11 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.option.VideoOptionsScreen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.option.CyclingOption;
 import net.minecraft.client.option.DoubleOption;
 import net.minecraft.client.option.GameOptions;
@@ -34,16 +35,16 @@ public class BrightOreConfigScreen extends Screen {
     }
 
     /**
-     * @see VideoOptionsScreen#init()
+     * @see TitleScreen
      * @see Option#AO
      * @see Option#GAMMA
      */
     @Override
     protected void init() {
         assert client != null : "???";
-        this.addButton(RENDER.createButton(client.options, this.width / 2 - 100, 27, 200));
-        this.addButton(DEFAULT_LIGHT.createButton(client.options, this.width / 2 - 100, 54, 200));
-        this.addButton(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, button -> {
+        this.addDrawableChild(RENDER.createButton(client.options, this.width / 2 - 100, 27, 200));
+        this.addDrawableChild(DEFAULT_LIGHT.createButton(client.options, this.width / 2 - 100, 54, 200));
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, button -> {
             BrightOreConfig.INSTANCE.save();
             client.worldRenderer.reload();
             this.client.openScreen(this.parent);
@@ -53,7 +54,7 @@ public class BrightOreConfigScreen extends Screen {
     public static Option asOption(Screen parent, MinecraftClient client) {
         return new Option("options.bright_ore") {
             @Override
-            public AbstractButtonWidget createButton(GameOptions options, int x, int y, int width) {
+            public ClickableWidget createButton(GameOptions options, int x, int y, int width) {
                 return new ButtonWidget(x, y, width, 20, new TranslatableText("options.bright_ore"), button -> client.openScreen(new BrightOreConfigScreen(parent)));
             }
         };
