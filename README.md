@@ -5,4 +5,5 @@ More information & download on [CurseForge](https://www.curseforge.com/minecraft
 Branches:
 * [aqua | 21w14a](https://github.com/Featurehouse/bright-ore/tree/aqua) (deprecated)
 * [cyan | 1.16.5](https://github.com/Featurehouse/bright-ore/tree/cyan) (semi-deprecated)
-* [lime | 1.17-pre1+](https://github.com/Featurehouse/bright-ore/tree/lime) (active)
+* [lime | 1.17-pre1+](https://github.com/Featurehouse/bright-ore/tree/lime) (deprecated)
+* [gray | 1.17.x | compat](https://github.com/Featurehouse/bright-ore/tree/gray) (active)
