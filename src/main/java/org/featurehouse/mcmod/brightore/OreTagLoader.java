@@ -90,6 +90,7 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
         INSTANCE;
 
         private final Object2IntMap<Block> map = new Object2IntOpenHashMap<>();
+        @SuppressWarnings("unused")
         public Object2IntMap<Block> get() {
             return map;
         }
@@ -106,6 +107,7 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
             return map.put(block, light);
         }
 
+        @SuppressWarnings("unused")
         public int put(Block block) {
             return this.put(block, BrightOreConfig.INSTANCE.defaultLight());
         }
@@ -117,6 +119,7 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
             return this.getValue(block) > 0;
         }
 
+        @SuppressWarnings("unused")
         public void forEach(BiConsumer<Block, Integer> consumer) {
             map.forEach(consumer);
         }

@@ -27,17 +27,12 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    def resourceLoaderS = "net.fabricmc.fabric-api:fabric-resource-loader-v0:${project.fabric_resource_loader_version}"
-
-    modImplementation resourceLoaderS
-    include resourceLoaderS
-    //modImplementation(include("net.fabricmc.fabric-api:fabric-api-base:${project.fabric_api_base_version}"))
-    //modImplementation(include("net.fabricmc.fabric-api:fabric-screen-api-v1:${project.fabric_screen_api_version}"))
+    include modImplementation ("net.fabricmc.fabric-api:fabric-resource-loader-v0:${project.fabric_resource_loader_version}")
 
     modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-    modRuntime 'net.fabricmc.fabric-api:fabric-renderer-indigo:0.4.8+413ddf6417'
-    //include(modImplementation("net.fabricmc.fabric-api:fabric-rendering-api-v1:0.4.1+92519afa17"))
+    modImplementation ("net.fabricmc.fabric-api:fabric-renderer-indigo:${project.fabric_indigo_version}")
+    modImplementation ("net.fabricmc.fabric-api:fabric-renderer-api-v1:${project.fabric_render_api_version}")
 }
 
 processResources {

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = WorldRenderer.class)
 @Environment(EnvType.CLIENT)
-abstract class MixinBlockRenderer {
+abstract class MixinWorldRenderer {
     @Redirect(
             method = "getLightmapCoordinates(Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;)I",
             at = @At(

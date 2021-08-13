@@ -6,11 +6,11 @@
   "package": "org.featurehouse.mcmod.brightore.mixin.renderer",
   "plugin": "org.featurehouse.mcmod.brightore.mixin.compat.BrightOreMixinConfig",
   "compatibilityLevel": "JAVA_16",
-  "client": [
-    "MixinBlockRenderer",
-    "MixinSmoothBlockModelRenderer"
-  ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "MixinBlockModelRenderer",
+    "MixinWorldRenderer"
+  ]
 }

@@ -16,7 +16,7 @@ import java.io.*;
 public enum BrightOreConfig {
     INSTANCE;
     private static final File CONFIG_FILE;
-    private static final Gson GSON = new Gson();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Logger LOGGER = LogManager.getLogger("Bright Ore Config");
 
     public static final int DEFAULT_LIGHT_PRESET = 30;

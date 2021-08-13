@@ -1,5 +1,8 @@
 package org.featurehouse.mcmod.brightore.mixin.compat;
 
+import com.google.common.collect.ImmutableList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.CustomValue;
@@ -11,12 +14,12 @@ import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+@Environment(EnvType.CLIENT)
 public class BrightOreMixinConfig implements IMixinConfigPlugin {
-    private static final Logger LOGGER = LogManager.getLogger("Bright Ore Mixin Config");
+    static final Logger LOGGER = LogManager.getLogger("Bright Ore Mixin Config");
+    private static final boolean APPLY_INDIGO = FabricLoader.getInstance().isModLoaded("fabric-renderer-indigo");
 
     /**
      * Called after the plugin is instantiated, do any setup here.
@@ -25,7 +28,8 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
      */
     @Override
     public void onLoad(String mixinPackage) {
-        LOGGER.info("Loading Mixin Config at {}", mixinPackage);
+        LOGGER.info("[Bright Ore] Loading Mixin Config at {}", mixinPackage);
+        if (APPLY_INDIGO) LOGGER.info("[Bright Ore] Indigo compat should be loaded");
     }
 
     /**
@@ -47,7 +51,7 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
 
     private void load() {
         if (loaded) return;
-        LOGGER.info("Checking mod custom values");
+        LOGGER.info("[Bright Ore] Checking mod custom values");
         modLoop: for (ModContainer modContainer : FabricLoader.getInstance().getAllMods()) {
             final ModMetadata meta = modContainer.getMetadata();
 
@@ -86,6 +90,7 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         load();
+
         if (incompatibleMixins == null) return false;
         return !incompatibleMixins.contains(mixinClassName);
     }
@@ -116,7 +121,15 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
      */
     @Override @Nullable
     public List<String> getMixins() {
-        return null;
+        // Additional ones
+        if (APPLY_INDIGO) {
+            LOGGER.info("Should apply indigo mixins");
+            return ImmutableList.of(
+                    //"compat.indigo.MixinBlockRenderContext",
+                    "compat.indigo.MixinBlockRenderInfo"
+            );
+
+        } return null;
     }
 
     /**

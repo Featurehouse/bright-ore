@@ -30,6 +30,6 @@
     "minecraft": "~1.17-alpha.21.19.a"
   },
   "custom": {
-    "fabric-renderer-api-v1:contains_renderer": "Incompatible with Indigo"
+
   }
 }

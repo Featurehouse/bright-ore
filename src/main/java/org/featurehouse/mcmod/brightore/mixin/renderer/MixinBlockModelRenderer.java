@@ -10,6 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
 import org.featurehouse.mcmod.brightore.OreTagLoader;
+import org.featurehouse.mcmod.brightore.mixin.renderer.compat.indigo.MixinBlockRenderInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,9 +19,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
 
+/**
+ * @see MixinBlockRenderInfo
+ */
 @Mixin(value = BlockModelRenderer.class)
 @Environment(EnvType.CLIENT)
-abstract class MixinSmoothBlockModelRenderer {
+public abstract class MixinBlockModelRenderer {
     @Shadow public abstract boolean renderFlat(BlockRenderView world, BakedModel model, BlockState state, BlockPos pos, MatrixStack buffer, VertexConsumer vertexConsumer, boolean cull, Random random, long l, int i);
 
     /**
@@ -35,10 +39,10 @@ abstract class MixinSmoothBlockModelRenderer {
      * mixin. So just take a custom value on {@code fabric.mod.json}.<br />
      * <br />
      *
-     * See Also: {@code net.fabricmc.mixin.client.indigo.renderer.MixinBlockModelRenderer} <br />
-     * See Also: {@code net.fabricmc.mixin.client.indigo.renderer.MixinChunkRebuildTask}   <br />
      * See Also: {@code net.minecraft.client.render.chunk.ChunkBuilder.RebuildTask#render}
      *
+     * @see net.fabricmc.fabric.mixin.client.indigo.renderer.MixinBlockModelRenderer
+     * @see net.fabricmc.fabric.mixin.client.indigo.renderer.MixinChunkRebuildTask
      * @see BlockModelRenderer#renderFlat(BlockRenderView, BakedModel, BlockState, BlockPos,
      * MatrixStack, VertexConsumer, boolean, Random, long, int)
      */
@@ -50,8 +54,6 @@ abstract class MixinSmoothBlockModelRenderer {
     )
     private void blockLight(BlockRenderView world, BakedModel model, BlockState state, BlockPos pos, MatrixStack matrix, VertexConsumer vertexConsumer, boolean cull, Random random, long seed, int overlay, CallbackInfoReturnable<Boolean> cir) {
         int light = OreTagLoader.redirectLuminance(state);
-        /* DEBUG */
-        //System.out.printf("Redirection finished: pos %s light %d\n", pos, light);
 
         if (light > 0) {
             //System.out.printf("Force Render Flat at %s with light ", pos);
