@@ -17,9 +17,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @SuppressWarnings("mixin_config")
 public class MixinBlockRenderInfo {
     @Redirect(
-            method = "prepareForBlock(Lnet/minecraft/class_2680;Lnet/minecraft/class_2338;Z)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/class_2680;method_26213()I", remap = false),
-            remap = false
+            method = "prepareForBlock",
+            at = @At(value = "INVOKE", target = "net.minecraft.block.BlockState.getLuminance()I")
     )
     private int aoLuminanceRedirection(BlockState it) {
         return OreTagLoader.redirectLuminance(it);
