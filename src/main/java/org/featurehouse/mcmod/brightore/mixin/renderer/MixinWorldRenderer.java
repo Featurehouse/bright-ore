@@ -9,9 +9,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+/**
+ * @see org.featurehouse.mcmod.brightore.mixin.renderer.compat.optifine.MixinOptiFineWorldRenderer
+ */
 @Mixin(value = WorldRenderer.class)
 @Environment(EnvType.CLIENT)
-abstract class MixinWorldRenderer {
+public abstract class MixinWorldRenderer {
     @Redirect(
             method = "getLightmapCoordinates(Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;)I",
             at = @At(

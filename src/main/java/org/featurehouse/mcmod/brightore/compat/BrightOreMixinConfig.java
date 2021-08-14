@@ -1,4 +1,4 @@
-package org.featurehouse.mcmod.brightore.mixin.compat;
+package org.featurehouse.mcmod.brightore.compat;
 
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
@@ -20,6 +20,8 @@ import java.util.*;
 public class BrightOreMixinConfig implements IMixinConfigPlugin {
     static final Logger LOGGER = LogManager.getLogger("Bright Ore Mixin Config");
     private static final boolean APPLY_INDIGO = FabricLoader.getInstance().isModLoaded("fabric-renderer-indigo");
+    private static final boolean APPLY_OF = FabricLoader.getInstance().isModLoaded("optifabric");
+    private static final boolean APPLY_SODIUM = FabricLoader.getInstance().isModLoaded("sodium");
 
     /**
      * Called after the plugin is instantiated, do any setup here.
@@ -30,6 +32,8 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
     public void onLoad(String mixinPackage) {
         LOGGER.info("[Bright Ore] Loading Mixin Config at {}", mixinPackage);
         if (APPLY_INDIGO) LOGGER.info("[Bright Ore] Indigo compat should be loaded");
+        if (APPLY_OF) LOGGER.info("[Bright Ore] OptiFine compat should be loaded");
+        if (APPLY_SODIUM) LOGGER.info("[Bright Ore] Sodium compat should be loaded");
     }
 
     /**
@@ -91,6 +95,12 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         load();
 
+        // If OptiFine loaded, MixinWorldRenderer redirection will crash
+        if (APPLY_OF && "org.featurehouse.mcmod.brightore.mixin.renderer.MixinWorldRenderer".equals(mixinClassName)) {
+            LOGGER.info("[Bright Ore] Skipping vanilla MixinWorldRenderer for OptiFine loaded");
+            return false;
+        }
+
         if (incompatibleMixins == null) return false;
         return !incompatibleMixins.contains(mixinClassName);
     }
@@ -122,14 +132,18 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
     @Override @Nullable
     public List<String> getMixins() {
         // Additional ones
+        ImmutableList.Builder<String> builder = new ImmutableList.Builder<>();
         if (APPLY_INDIGO) {
-            LOGGER.info("Should apply indigo mixins");
-            return ImmutableList.of(
-                    //"compat.indigo.MixinBlockRenderContext",
-                    "compat.indigo.MixinBlockRenderInfo"
-            );
-
-        } return null;
+            LOGGER.info("[Bright Ore] Should apply indigo mixins");
+            builder.add("compat.indigo.MixinBlockRenderInfo");
+        } if (APPLY_OF) {
+            LOGGER.info("[Bright Ore] Should apply OptiFine mixins");
+            builder.add("compat.optifine.MixinOptiFineWorldRenderer");
+        } if (APPLY_SODIUM) {
+            LOGGER.info("[Bright Ore] Should apply Sodium mixins");
+            builder.add("compat.sodium.MixinSodiumOptionsGui");
+        }
+        return builder.build();
     }
 
     /**
