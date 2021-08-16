@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(BlockRenderer.class)
 public class MixinSodiumBlockRenderer {
     @Redirect(method = "getLightingMode",
-    at = @At(value = "INVOKE", target = "net.minecraft.block.AbstractBlock.AbstractBlockState.getLuminance()I"))
+    at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;getLuminance()I"))
     private int redirectLuminance(BlockState it) {
         return OreTagLoader.redirectLuminance(it);
     }

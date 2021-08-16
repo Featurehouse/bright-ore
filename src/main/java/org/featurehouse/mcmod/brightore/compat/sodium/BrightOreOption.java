@@ -68,6 +68,8 @@ public class BrightOreOption<H>
 
     Control<H> controlLazy;
 
+    final H currentValue;
+
     BrightOreOption(Text name,
                     @Nullable Text tooltip,
                     Function<Option<H>, Control<H>> controlInitializer,
@@ -80,6 +82,8 @@ public class BrightOreOption<H>
         this.defaultValue = defaultValue;
         this.setter = setter;
         this.getter = getter;
+
+        currentValue = getValue();
     }
 
     @Override
@@ -117,7 +121,7 @@ public class BrightOreOption<H>
 
     @Override
     public void reset() {
-        this.setValue(defaultValue);
+        this.setValue(currentValue);
     }
 
     @Override
@@ -132,7 +136,7 @@ public class BrightOreOption<H>
 
     @Override
     public boolean hasChanged() {
-        return !defaultValue.equals(getValue());
+        return !currentValue.equals(getValue());
     }
 
     @Override
