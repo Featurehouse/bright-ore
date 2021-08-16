@@ -88,8 +88,8 @@ public class BrightOreOption<H>
     }
 
     @Override
-    public @Nullable Text getTooltip() {
-        return tooltip;
+    public @NotNull Text getTooltip() {
+        return tooltip != null ? tooltip : Text.of("");
     }
 
     @Override

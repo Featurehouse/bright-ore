@@ -21,7 +21,7 @@ import java.util.List;
 public class MixinSodiumOptionsGui {
     @Shadow @Final private List<OptionPage> pages;
 
-    @Inject(method = "<init>", at = @At("RETURN"))
+    @Inject(method = "<init>(Lnet/minecraft/client/gui/screen/Screen;)V", at = @At("RETURN"))
     private void addPage(Screen prevScreen, CallbackInfo ci) {
         this.pages.add(BrightOreOption.brightOre());
     }
