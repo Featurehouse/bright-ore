@@ -24,6 +24,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * @see OptionImpl
+ */
 @Environment(EnvType.CLIENT)
 public class BrightOreOption<H>
         implements Option<H>, OptionStorage<BrightOreConfig> {
@@ -68,7 +71,7 @@ public class BrightOreOption<H>
 
     Control<H> controlLazy;
 
-    final H currentValue;
+    H currentValue;
 
     BrightOreOption(Text name,
                     @Nullable Text tooltip,
@@ -141,7 +144,7 @@ public class BrightOreOption<H>
 
     @Override
     public void applyChanges() {
-        // Do nothing
+        currentValue = getValue();
     }
 
     @Override
