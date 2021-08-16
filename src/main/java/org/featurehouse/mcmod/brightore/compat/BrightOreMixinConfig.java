@@ -129,7 +129,7 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
      *
      * @return additional mixins to apply
      */
-    @Override @Nullable
+    @Override
     public List<String> getMixins() {
         // Additional ones
         ImmutableList.Builder<String> builder = new ImmutableList.Builder<>();
@@ -141,7 +141,11 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
             builder.add("compat.optifine.MixinOptiFineWorldRenderer");
         } if (APPLY_SODIUM) {
             LOGGER.info("[Bright Ore] Should apply Sodium mixins");
-            builder.add("compat.sodium.MixinSodiumOptionsGui");
+            builder.add(
+                    "compat.sodium.MixinSodiumOptionsGui",
+                    "compat.sodium.MixinSodiumBlockRenderer",
+                    "compat.sodium.MixinLightDataAccess"
+            );
         }
         return builder.build();
     }
