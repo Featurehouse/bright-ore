@@ -1,5 +1,6 @@
 package org.featurehouse.mcmod.brightore.compat.sodium;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import me.jellysquid.mods.sodium.client.gui.options.*;
 import me.jellysquid.mods.sodium.client.gui.options.control.Control;
@@ -9,7 +10,6 @@ import me.jellysquid.mods.sodium.client.gui.options.control.TickBoxControl;
 import me.jellysquid.mods.sodium.client.gui.options.storage.OptionStorage;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import org.featurehouse.mcmod.brightore.BrightOreConfig;
@@ -29,13 +29,7 @@ import java.util.function.Supplier;
  */
 @Environment(EnvType.CLIENT)
 public class BrightOreOption<H>
-        implements Option<H>, OptionStorage<BrightOreConfig> {
-
-    static {
-        if (!FabricLoader.getInstance().isModLoaded("sodium")) {
-            throw new IllegalAccessError("Sodium mod is not loaded");
-        }
-    }
+        implements Option<H> {
 
     public static OptionPage brightOre() {
         List<OptionGroup> groups = new ArrayList<>();
@@ -76,7 +70,7 @@ public class BrightOreOption<H>
     BrightOreOption(Text name,
                     @Nullable Text tooltip,
                     Function<Option<H>, Control<H>> controlInitializer,
-                    @NotNull H defaultValue,
+                    @NotNull @Deprecated H defaultValue,
                     Consumer<H> setter,
                     Supplier<H> getter) {
         this.name = name;
@@ -114,22 +108,33 @@ public class BrightOreOption<H>
 
     @Override
     public H getValue() {
-        return getter.get();
+        return currentValue;
     }
 
     @Override
     public void setValue(H h) {
-        setter.accept(h);
+        this.currentValue = h;
     }
 
     @Override
     public void reset() {
-        this.setValue(currentValue);
+        this.currentValue = getter.get();
     }
 
     @Override
-    public OptionStorage<?> getStorage() {
-        return this;
+    public OptionStorage<BrightOreConfig> getStorage() {
+        return new OptionStorage<>() {
+            @Override
+            public BrightOreConfig getData() {
+                return BrightOreConfig.INSTANCE;
+            }
+
+            @Override
+            public void save() {
+                //setter.accept(currentValue);
+                getData().save();
+            }
+        };
     }
 
     @Override
@@ -139,26 +144,17 @@ public class BrightOreOption<H>
 
     @Override
     public boolean hasChanged() {
-        return !currentValue.equals(getValue());
+        //return !currentValue.equals(getter.get());
+        return Objects.equal(currentValue, getter.get());
     }
 
     @Override
     public void applyChanges() {
-        currentValue = getValue();
+        setter.accept(currentValue);
     }
 
     @Override
     public Collection<OptionFlag> getFlags() {
         return Collections.singleton(OptionFlag.REQUIRES_RENDERER_RELOAD);
-    }
-
-    @Override
-    public BrightOreConfig getData() {
-        return BrightOreConfig.INSTANCE;
-    }
-
-    @Override
-    public void save() {
-        BrightOreConfig.INSTANCE.save();
     }
 }

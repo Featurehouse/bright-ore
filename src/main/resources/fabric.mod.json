@@ -7,7 +7,9 @@
   "authors": [
     "teddyxlandlee"
   ],
-  "contact": {},
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/bright-ore"
+  },
   "license": "MIT",
   "icon": "assets/bright_ore/icon.png",
   "environment": "client",

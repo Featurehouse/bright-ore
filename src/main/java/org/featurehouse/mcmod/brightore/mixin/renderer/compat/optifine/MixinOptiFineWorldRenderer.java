@@ -12,10 +12,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 /**
+ * @deprecated Won't use
  * @see org.featurehouse.mcmod.brightore.mixin.renderer.MixinWorldRenderer
  */
 @Mixin(WorldRenderer.class)
 @Environment(EnvType.CLIENT)
+@Deprecated
 @SuppressWarnings("optifine-modification")
 public class MixinOptiFineWorldRenderer {
     // See: class_2680 /* BlockState */ .getLightValue(BlockView, BlockPos)

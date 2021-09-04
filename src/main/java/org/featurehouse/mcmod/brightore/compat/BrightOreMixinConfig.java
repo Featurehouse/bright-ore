@@ -138,7 +138,7 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
             builder.add("compat.indigo.MixinBlockRenderInfo");
         } if (APPLY_OF) {
             LOGGER.info("[Bright Ore] Should apply OptiFine mixins");
-            builder.add("compat.optifine.MixinOptiFineWorldRenderer");
+            //builder.add("compat.optifine.MixinOptiFineWorldRenderer");
         } if (APPLY_SODIUM) {
             LOGGER.info("[Bright Ore] Should apply Sodium mixins");
             builder.add(
