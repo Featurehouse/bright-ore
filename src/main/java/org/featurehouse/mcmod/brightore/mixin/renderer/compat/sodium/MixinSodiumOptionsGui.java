@@ -20,11 +20,10 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 @SuppressWarnings("mixin")
 public abstract class MixinSodiumOptionsGui {
-    @Accessor("pages")
-    abstract List<OptionPage> getPages();
+    @Shadow @Final private List<OptionPage> pages;
 
     @Inject(method = "<init>(Lnet/minecraft/client/gui/screen/Screen;)V", at = @At("RETURN"))
     private void addPage(Screen prevScreen, CallbackInfo ci) {
-        this.getPages().add(BrightOreOption.brightOre());
+        this.pages.add(BrightOreOption.brightOre());
     }
 }

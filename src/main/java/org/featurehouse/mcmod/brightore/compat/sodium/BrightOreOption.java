@@ -16,10 +16,7 @@ import org.featurehouse.mcmod.brightore.BrightOreConfig;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -65,12 +62,13 @@ public class BrightOreOption<H>
     final Text name;
     final @Nullable Text tooltip;
     final Function<Option<H>, Control<H>> control;
-    final @NotNull H defaultValue;
+    @Deprecated final @NotNull H defaultValue;
     final Consumer<H> setter;
     final Supplier<H> getter;
 
     Control<H> controlLazy;
 
+    H previousValue;
     H currentValue;
 
     BrightOreOption(Text name,
@@ -86,7 +84,7 @@ public class BrightOreOption<H>
         this.setter = setter;
         this.getter = getter;
 
-        currentValue = getValue();
+        previousValue = currentValue = /*getValue();*/ getter.get();
     }
 
     @Override
@@ -114,17 +112,20 @@ public class BrightOreOption<H>
 
     @Override
     public H getValue() {
-        return getter.get();
+        //return getter.get();
+        return currentValue;
     }
 
     @Override
     public void setValue(H h) {
-        setter.accept(h);
+        //setter.accept(h);
+        currentValue = h;
     }
 
     @Override
     public void reset() {
-        this.setValue(currentValue);
+        //this.setValue(currentValue);
+        this.setValue(previousValue);
     }
 
     @Override
@@ -139,12 +140,15 @@ public class BrightOreOption<H>
 
     @Override
     public boolean hasChanged() {
-        return !currentValue.equals(getValue());
+        //return !currentValue.equals(getValue());
+        return !Objects.equals(previousValue, currentValue);
     }
 
     @Override
     public void applyChanges() {
-        currentValue = getValue();
+        //currentValue = getValue();
+        setter.accept(currentValue);
+        previousValue = currentValue;
     }
 
     @Override
