@@ -24,6 +24,8 @@ import java.util.List;
 /**
  * @see OptionsScreen
  * @see VideoOptionsScreen
+ * @deprecated use {@linkplain me.shedaniel.clothconfig2.gui.ClothConfigScreen
+ * cloth-config2 screen} instead.
  */
 @Environment(EnvType.CLIENT)
 public class BrightOreConfigScreen extends Screen {

@@ -22,6 +22,13 @@ public enum OreTagMap {
                 public int put(Block block, int v) {
                     return super.put(Objects.requireNonNull(block), v);
                 }
+
+                @Override
+                public boolean containsKey(Object k) {
+                    if (!BrightOreConfig.INSTANCE.render())
+                        return false;
+                    return super.containsKey(k);
+                }
             });//new Object2IntOpenHashMap<>();
 
     @Deprecated
