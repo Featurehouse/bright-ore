@@ -47,7 +47,7 @@ public class BrightOreConfigScreen extends Screen {
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, button -> {
             BrightOreConfig.INSTANCE.save();
             client.worldRenderer.reload();
-            this.client.openScreen(this.parent);
+            this.client.setScreen(this.parent);
         }));
     }
 
@@ -55,7 +55,7 @@ public class BrightOreConfigScreen extends Screen {
         return new Option("options.bright_ore") {
             @Override
             public ClickableWidget createButton(GameOptions options, int x, int y, int width) {
-                return new ButtonWidget(x, y, width, 20, new TranslatableText("options.bright_ore"), button -> client.openScreen(new BrightOreConfigScreen(parent)));
+                return new ButtonWidget(x, y, width, 20, new TranslatableText("options.bright_ore"), button -> client.setScreen(new BrightOreConfigScreen(parent)));
             }
         };
     }

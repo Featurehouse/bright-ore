@@ -1,4 +1,4 @@
-package org.featurehouse.mcmod.brightore.mixin.compat;
+package org.featurehouse.mcmod.brightore.compat;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
