@@ -1,0 +1,12 @@
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+/*class Constants {
+    static def ofDownload = 'https://optifine.net/downloadx?f=OptiFine_1.17.1_HD_U_G9.jar&x=f669647cdc74b228ba9a23cfea097ec5'
+}*/
+
+dependencies {
+    //runtimeOnly files('./MinecraftOF.jar')
+    runtimeOnly files('./MinecraftOF.jar')
+}

@@ -1,0 +1,15 @@
+{
+  "package": "org.featurehouse.mcmod.brightore.mixin.renderer",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_16",
+
+  "client": [
+    "SetBlockStateHacks"
+  ],
+
+  "plugin": "org.featurehouse.mcmod.brightore.compat.BrightOreMixinConfig",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

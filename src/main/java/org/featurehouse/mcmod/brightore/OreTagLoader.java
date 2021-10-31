@@ -1,8 +1,6 @@
 package org.featurehouse.mcmod.brightore;
 
 import com.google.gson.*;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
@@ -21,9 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
-import java.util.function.BiConsumer;
 
-import static org.featurehouse.mcmod.brightore.OreTagLoader.OreTagMap.INSTANCE;
+import static org.featurehouse.mcmod.brightore.OreTagMap.INSTANCE;
 
 @Environment(EnvType.CLIENT)
 public class OreTagLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
@@ -86,46 +83,11 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
         }
     }
 
-    public enum OreTagMap {
-        INSTANCE;
-
-        private final Object2IntMap<Block> map = new Object2IntOpenHashMap<>();
-        public Object2IntMap<Block> get() {
-            return map;
-        }
-
-        public boolean containsKey(Block block) {
-            return map.containsKey(block);
-        }
-
-        public int getValue(Block block) {
-            return map.getOrDefault(block, 0);
-        }
-
-        public int put(Block block, int light) {
-            return map.put(block, light);
-        }
-
-        public int put(Block block) {
-            return this.put(block, BrightOreConfig.INSTANCE.defaultLight());
-        }
-
-        @Deprecated // If you want to disable rendering a kind of
-                    // ore, you must set its luminance to zero.
-        public boolean available(Block block) {
-            if (!map.containsKey(block)) return false;
-            return this.getValue(block) > 0;
-        }
-
-        public void forEach(BiConsumer<Block, Integer> consumer) {
-            map.forEach(consumer);
-        }
-    }
-
     private static boolean notAir(Block block) {
         return block != Blocks.AIR && block != Blocks.CAVE_AIR && block != Blocks.VOID_AIR;
     }
 
+    @Deprecated
     public static int redirectLuminance(BlockState it) {
         if (BrightOreConfig.INSTANCE.render()) {
             Block block1 = it.getBlock();

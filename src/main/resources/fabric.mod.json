@@ -3,7 +3,7 @@
   "id": "bright-ore",
   "version": "${version}",
   "name": "Bright Ore",
-  "description": "A client mod that makes ores light and bright. It can decrease the difficulty of mining in 1.17 caves.",
+  "description": "A client mod that makes ores light and bright. It can decrease the difficulty of mining in the huge caves.",
   "authors": [
     "teddyxlandlee"
   ],
@@ -20,7 +20,7 @@
     ]
   },
   "mixins": [
-    "bright-ore.mixins.json",
+    "bright-ore-renderer.mixins.json",
     "bright-ore-config.mixins.json"
   ],
   "depends": {
@@ -30,6 +30,6 @@
     "minecraft": "~1.17-alpha.21.19.a"
   },
   "custom": {
-    "fabric-renderer-api-v1:contains_renderer": "Incompatible with Indigo"
+
   }
 }

@@ -3,62 +3,70 @@ plugins {
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
-
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
 dependencies {
-    repositories {
-        mavenLocal()
-        maven {
-            name = 'COVID-Trump'
-            url = 'https://covid-trump.github.io/mvn/'
-        }
-        maven {
-            name = "TerraformersMC"
-            url  = 'https://maven.terraformersmc.com/releases/'
-        }
-    }
-    //to change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-    def resourceLoaderS = "net.fabricmc.fabric-api:fabric-resource-loader-v0:${project.fabric_resource_loader_version}"
-
-    modImplementation resourceLoaderS
-    include resourceLoaderS
-    //modImplementation(include("net.fabricmc.fabric-api:fabric-api-base:${project.fabric_api_base_version}"))
-    //modImplementation(include("net.fabricmc.fabric-api:fabric-screen-api-v1:${project.fabric_screen_api_version}"))
-
-    modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+    modCompileOnly "com.terraformersmc:modmenu:${rootProject.modmenu_version}"
 
     modRuntime 'net.fabricmc.fabric-api:fabric-renderer-indigo:0.4.8+413ddf6417'
-    //include(modImplementation("net.fabricmc.fabric-api:fabric-rendering-api-v1:0.4.1+92519afa17"))
 }
 
-processResources {
-    inputs.property "version", project.version
+allprojects { Project proj ->
+    apply plugin: 'fabric-loom'
 
-    filesMatching("fabric.mod.json") {
-        expand 'version': project.version
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
+
+    dependencies {
+        repositories {
+            mavenLocal()
+            maven {
+                name = 'COVID-Trump'
+                url = 'https://covid-trump.github.io/mvn/'
+            }
+            maven {
+                name = "TerraformersMC"
+                url  = 'https://maven.terraformersmc.com/releases/'
+            }
+        }
+        //to change the versions see the gradle.properties file
+        minecraft "com.mojang:minecraft:${project.minecraft_version}"
+        mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+        modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+        def resourceLoaderS = "net.fabricmc.fabric-api:fabric-resource-loader-v0:${project.fabric_resource_loader_version}"
+
+        modImplementation resourceLoaderS
+        include resourceLoaderS
+        //modImplementation(include("net.fabricmc.fabric-api:fabric-api-base:${project.fabric_api_base_version}"))
+        //modImplementation(include("net.fabricmc.fabric-api:fabric-screen-api-v1:${project.fabric_screen_api_version}"))
+        //include(modImplementation("net.fabricmc.fabric-api:fabric-rendering-api-v1:0.4.1+92519afa17"))
     }
-}
+
+    processResources {
+        inputs.property "version", proj.version
+
+        filesMatching("fabric.mod.json") {
+            expand 'version': proj.version
+        }
+    }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
 // this fixes some edge cases with special characters not displaying correctly
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile).configureEach {
-    it.options.encoding = "UTF-8"
-}
+    tasks.withType(JavaCompile).configureEach {
+        it.options.encoding = "UTF-8"
+    }
 
-java.withSourcesJar()
+    java.withSourcesJar()
 
-jar {
-    from "LICENSE"
+    jar {
+        from ("LICENSE") {
+            rename { "${it}_$archivesBaseName" }
+        }
+    }
 }
 
 // configure the maven publication
