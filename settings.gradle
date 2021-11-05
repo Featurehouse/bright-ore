@@ -10,4 +10,4 @@ pluginManagement {
     }
 }
 
-include 'optifine-compat'
+//include 'optifine-compat'

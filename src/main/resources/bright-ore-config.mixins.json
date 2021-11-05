@@ -4,7 +4,7 @@
   "package": "org.featurehouse.mcmod.brightore.mixin.config",
   "compatibilityLevel": "JAVA_16",
   "client": [
-    "MixinVideoOptionsMenu"
+
   ],
   "injectors": {
     "defaultRequire": 1

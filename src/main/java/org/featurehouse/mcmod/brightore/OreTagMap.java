@@ -5,6 +5,8 @@ import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.OreBlock;
+import net.minecraft.block.RedstoneOreBlock;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +17,10 @@ import java.util.function.BiConsumer;
 @SuppressWarnings("unused")
 public enum OreTagMap {
     INSTANCE;
+
+    static boolean filterDefaultOres(Object o) {
+        return o instanceof OreBlock || o instanceof RedstoneOreBlock;
+    }
 
     private final Object2IntMap<Block> map =
             Object2IntMaps.synchronize(new Object2IntOpenHashMap<>() {
@@ -27,7 +33,14 @@ public enum OreTagMap {
                 public boolean containsKey(Object k) {
                     if (!BrightOreConfig.INSTANCE.render())
                         return false;
-                    return super.containsKey(k);
+                    return filterDefaultOres(k) || super.containsKey(k);
+                }
+
+                @Override
+                public int getInt(Object k) {
+                    if (!super.containsKey(k) && filterDefaultOres(k)) {
+                        return BrightOreConfig.INSTANCE.defaultLight();
+                    } return super.getInt(k);
                 }
             });//new Object2IntOpenHashMap<>();
 
@@ -91,6 +104,10 @@ public enum OreTagMap {
     public boolean available(Block block) {
         if (!map.containsKey(block)) return false;
         return this.getValue(block) > 0;
+    }
+
+    void clear() {
+        map.clear();
     }
 
     public void forEach(BiConsumer<Block, Integer> consumer) {

@@ -27,6 +27,7 @@ import java.util.List;
  * @deprecated use {@linkplain me.shedaniel.clothconfig2.gui.ClothConfigScreen
  * cloth-config2 screen} instead.
  */
+@Deprecated
 @Environment(EnvType.CLIENT)
 public class BrightOreConfigScreen extends Screen {
     protected Screen parent;
