@@ -7,6 +7,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.OreBlock;
 import net.minecraft.block.RedstoneOreBlock;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,6 +25,8 @@ public enum OreTagMap {
     static boolean filterDefaultOres(Object o) {
         return o instanceof OreBlock || o instanceof RedstoneOreBlock;
     }
+
+    private final Logger LOGGER = LogManager.getLogger("OreTagMap.INSTANCE");
 
     private final Object2IntMap<Block> map =
             Object2IntMaps.synchronize(new Object2IntOpenHashMap<>() {
@@ -43,6 +49,14 @@ public enum OreTagMap {
                     } return super.getInt(k);
                 }
             });//new Object2IntOpenHashMap<>();
+    {
+        LOGGER.debug("deepslate_emerald_ore in map: {}",    // should be true
+                map.containsKey(Registry.BLOCK.get(new Identifier("deepslate_emerald_ore"))));
+        LOGGER.debug("redstone_ore in map: {}",             // should be true
+                map.containsKey(Registry.BLOCK.get(new Identifier("redstone_ore"))));
+        LOGGER.debug("stone in map: {}",                    // should be false in vanilla
+                map.containsKey(Registry.BLOCK.get(new Identifier("stone"))));
+    }
 
     @Deprecated
     public Object2IntMap<Block> get() {
