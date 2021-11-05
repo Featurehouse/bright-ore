@@ -25,7 +25,7 @@ import java.util.List;
  * @see OptionsScreen
  * @see VideoOptionsScreen
  * @deprecated use {@linkplain me.shedaniel.clothconfig2.gui.ClothConfigScreen
- * cloth-config2 screen} instead.
+ * cloth-config2 screen} instead. This will be removed in 1.19.
  */
 @Deprecated
 @Environment(EnvType.CLIENT)
