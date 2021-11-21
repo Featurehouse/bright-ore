@@ -3,7 +3,7 @@ package org.featurehouse.mcmod.brightore;
 import com.google.gson.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.block.*;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
@@ -23,7 +23,7 @@ import java.util.Map;
 import static org.featurehouse.mcmod.brightore.OreTagMap.INSTANCE;
 
 @Environment(EnvType.CLIENT)
-public class OreTagLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class OreTagLoader extends JsonDataLoader implements SimpleSynchronousResourceReloadListener {
 
     protected static final Identifier FABRIC_ID = new Identifier("bright_ore", "ore_tags");
     private static final Gson GSON = new GsonBuilder().create();
@@ -64,6 +64,11 @@ public class OreTagLoader extends JsonDataLoader implements IdentifiableResource
                 }
             }
         });
+    }
+
+    @Override
+    public void reload(ResourceManager manager) {
+        INSTANCE.clear();
     }
 
     private static void put(String string, int light) throws RuntimeException {

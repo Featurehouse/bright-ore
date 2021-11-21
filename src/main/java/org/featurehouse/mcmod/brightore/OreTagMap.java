@@ -11,9 +11,13 @@ public enum OreTagMap {
 
     private final Object2IntMap<Block> map = new Object2IntOpenHashMap<>();
 
-    @SuppressWarnings("unused")
+    @Deprecated(forRemoval = true)
     public Object2IntMap<Block> get() {
         return map;
+    }
+
+    void clear() {
+        map.clear();
     }
 
     public boolean containsKey(Block block) {

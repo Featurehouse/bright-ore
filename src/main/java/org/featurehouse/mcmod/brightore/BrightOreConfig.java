@@ -75,19 +75,19 @@ public enum BrightOreConfig {
         }
     }
 
-    protected void setToDefault() {
+    private void setToDefault() {
         this.render = true;
         this.defaultLight = DEFAULT_LIGHT_PRESET;
     }
 
-    protected JsonObject toJson() {
+    private JsonObject toJson() {
         JsonObject root = new JsonObject();
         root.add("render", new JsonPrimitive(this.render));
         root.add("default_light", new JsonPrimitive(this.defaultLight));
         return root;
     }
 
-    protected void fromJson(JsonObject root) throws JsonSyntaxException {
+    private void fromJson(JsonObject root) throws JsonSyntaxException {
         this.render = JsonHelper.getBoolean(root, "render");
 
         if (JsonHelper.hasNumber(root, "default_light")) {
