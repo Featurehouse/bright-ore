@@ -28,7 +28,7 @@ import java.util.function.Supplier;
  * config screen} instead. This screen will not be supported and will
  * be removed by Minecraft 1.19.
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 @Environment(EnvType.CLIENT)
 public class BrightOreOption<H>
         implements Option<H>, OptionStorage<BrightOreConfig> {

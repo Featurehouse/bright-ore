@@ -26,7 +26,7 @@ public final class AsmAoLuminanceFix {
             if (node instanceof MethodInsnNode m && bl.mapMethod().matchInsn(m))
                 return m;
         } throw new IllegalStateException("Method invocation not found in AoLuminanceFix.fixed: " +
-                "BlockState.getLuminance()I | class_2680.method_26213()I");
+                bl.mapMethod());
     }
 }
 
