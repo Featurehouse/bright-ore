@@ -9,7 +9,9 @@ import org.objectweb.asm.tree.*;
 
 import static org.featurehouse.mcmod.brightore.compat.indigo.asm.IndigoMappingConstants.*;
 
+@Deprecated(forRemoval = true)
 public final class AsmAoLuminanceFix {
+    @SuppressWarnings("unused")
     public static void bootstrap(String targetClassName, ClassNode targetClass) {
         MethodNode method = targetClass.methods.stream().filter(m -> "fixed".equals(m.name) &&
                 mapMethodType(vpf).equals(m.desc)).findFirst()

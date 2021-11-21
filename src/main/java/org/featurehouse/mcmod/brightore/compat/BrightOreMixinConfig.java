@@ -9,13 +9,14 @@ import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.featurehouse.mcmod.brightore.compat.indigo.asm.AsmAoLuminanceFix;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Environment(EnvType.CLIENT)
 public class BrightOreMixinConfig implements IMixinConfigPlugin {
@@ -137,8 +138,8 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
         if (APPLY_INDIGO) {
             LOGGER.info("[Bright Ore] Should apply indigo mixins");
             builder.add(
-                    "compat.indigo.MixinBlockRenderInfo",
-                    "compat.indigo.asm.dummy.DummyAsmAoLuminanceFix"
+                    "compat.indigo.MixinBlockRenderInfo"//,
+                    //"compat.indigo.asm.dummy.DummyAsmAoLuminanceFix"
             );
         } if (APPLY_OF) {
             LOGGER.info("[Bright Ore] Should apply OptiFine mixins");
@@ -165,9 +166,9 @@ public class BrightOreMixinConfig implements IMixinConfigPlugin {
      */
     @Override
     public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-        if ("org.featurehouse.mcmod.brightore.mixin.renderer.compat.indigo.asm.dummy.DummyAsmAoLuminanceFix".equals(mixinClassName)) {
-            AsmAoLuminanceFix.bootstrap(targetClassName, targetClass);
-        }
+        //if ("org.featurehouse.mcmod.brightore.mixin.renderer.compat.indigo.asm.dummy.DummyAsmAoLuminanceFix".equals(mixinClassName)) {
+        //    AsmAoLuminanceFix.bootstrap(targetClassName, targetClass);
+        //}
     }
 
     /**

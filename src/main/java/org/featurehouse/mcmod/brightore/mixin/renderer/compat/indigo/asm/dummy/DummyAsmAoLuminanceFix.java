@@ -4,5 +4,7 @@ import net.fabricmc.fabric.impl.client.indigo.renderer.aocalc.AoLuminanceFix;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(AoLuminanceFix.class)
+@Deprecated(forRemoval = true)
+@SuppressWarnings("all")
 interface DummyAsmAoLuminanceFix {
 }
