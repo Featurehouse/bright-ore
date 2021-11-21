@@ -13,6 +13,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import org.featurehouse.mcmod.brightore.BrightOreConfig;
+import org.featurehouse.mcmod.brightore.BrightOreModMenuImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,14 +24,18 @@ import java.util.function.Supplier;
 
 /**
  * @see OptionImpl
+ * @deprecated please use {@linkplain BrightOreModMenuImpl cloth
+ * config screen} instead. This screen will not be supported and will
+ * be removed by Minecraft 1.19.
  */
+@Deprecated
 @Environment(EnvType.CLIENT)
 public class BrightOreOption<H>
         implements Option<H>, OptionStorage<BrightOreConfig> {
 
     static {
         if (!FabricLoader.getInstance().isModLoaded("sodium")) {
-            throw new IllegalAccessError("Sodium mod is not loaded");
+            throw new IllegalStateException("Sodium mod is not loaded");
         }
     }
 

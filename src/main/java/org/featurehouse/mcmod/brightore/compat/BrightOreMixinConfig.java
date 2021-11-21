@@ -9,7 +9,7 @@ import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.featurehouse.mcmod.brightore.mixin.renderer.compat.indigo.asm.AsmAoLuminanceFix;
+import org.featurehouse.mcmod.brightore.compat.indigo.asm.AsmAoLuminanceFix;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;

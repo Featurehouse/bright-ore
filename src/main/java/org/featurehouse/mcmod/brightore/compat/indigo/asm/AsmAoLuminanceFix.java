@@ -1,4 +1,4 @@
-package org.featurehouse.mcmod.brightore.mixin.renderer.compat.indigo.asm;
+package org.featurehouse.mcmod.brightore.compat.indigo.asm;
 
 import net.fabricmc.loader.api.FabricLoader;
 import org.jetbrains.annotations.NonNls;
@@ -7,7 +7,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.*;
 
-import static org.featurehouse.mcmod.brightore.mixin.renderer.compat.indigo.asm.IndigoMappingConstants.*;
+import static org.featurehouse.mcmod.brightore.compat.indigo.asm.IndigoMappingConstants.*;
 
 public final class AsmAoLuminanceFix {
     public static void bootstrap(String targetClassName, ClassNode targetClass) {
