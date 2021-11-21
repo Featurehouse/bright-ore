@@ -7,8 +7,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.option.OptionsScreen;
-import net.minecraft.client.gui.screen.option.VideoOptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.option.CyclingOption;
@@ -22,9 +20,11 @@ import net.minecraft.text.TranslatableText;
 import java.util.List;
 
 /**
- * @see OptionsScreen
- * @see VideoOptionsScreen
+ * @deprecated please use {@linkplain BrightOreModMenuImpl.Conf cloth
+ * config screen} instead. This screen will not be supported and will
+ * be removed by Minecraft 1.19.
  */
+@Deprecated(forRemoval = true)
 @Environment(EnvType.CLIENT)
 public class BrightOreConfigScreen extends Screen {
     protected Screen parent;

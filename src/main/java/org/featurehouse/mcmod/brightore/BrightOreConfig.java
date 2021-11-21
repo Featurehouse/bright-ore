@@ -11,11 +11,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @Environment(EnvType.CLIENT)
 public enum BrightOreConfig {
     INSTANCE;
-    private static final File CONFIG_FILE;
+    private static final Path CONFIG_FILE;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Logger LOGGER = LogManager.getLogger("Bright Ore Config");
 
@@ -36,34 +38,36 @@ public enum BrightOreConfig {
 
     public void save() {
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(CONFIG_FILE));
-            String s = GSON.toJson(this.toJson());
-            bw.write(s);
-            bw.close();
+            save0();
         } catch (IOException e) {
-            LOGGER.fatal("Cannot save", e);
+            LOGGER.fatal("Cannot save Bright Ore config", e);
         }
     }
 
-    public void reload() {
-        if (!CONFIG_FILE.exists()) {
-            LOGGER.info("Creating config file: {}", CONFIG_FILE.getAbsolutePath());
-            try {
-                CONFIG_FILE.getParentFile().mkdirs();
-                CONFIG_FILE.createNewFile();
+    private void save0() throws IOException {
+        JsonObject json = this.toJson();
+        var bw = Files.newBufferedWriter(CONFIG_FILE);
+        GSON.toJson(json, GSON.newJsonWriter(bw));
+        bw.close();
+    }
 
-                BufferedWriter bw = new BufferedWriter(new FileWriter(CONFIG_FILE));
-                bw.write("{\n  \"render\": true,\n  \"default_light\": 30\n}");
-                bw.close();
-            } catch (IOException e) {
-                LOGGER.fatal("Cannot load config", e);
-            } finally {
+    public void reload() {
+        if (!Files.exists(CONFIG_FILE)) {
+            LOGGER.info("Creating config file: {}", CONFIG_FILE.toAbsolutePath());
+            try {
                 LOGGER.info("Setting up default values");
                 this.setToDefault();
+
+                Files.createDirectories(CONFIG_FILE.getParent());
+                Files.createFile(CONFIG_FILE);
+
+                this.save0();
+            } catch (IOException | JsonIOException e) {
+                LOGGER.fatal("Cannot load config", e);
             }
         } else {
             try {
-                BufferedReader br = new BufferedReader(new FileReader(CONFIG_FILE));
+                BufferedReader br = Files.newBufferedReader(CONFIG_FILE);
                 JsonElement je = new JsonParser().parse(br);
                 JsonObject root = JsonHelper.asObject(je, "root");
                 this.fromJson(root);
@@ -100,6 +104,6 @@ public enum BrightOreConfig {
     }
 
     static {
-        CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("org.featurehouse.mcmod.bright-ore/config.json").toFile();
+        CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("org.featurehouse.mcmod.bright-ore/config.json");
     }
 }
